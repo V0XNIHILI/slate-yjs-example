@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import { Node } from "slate";
 import { Editable, ReactEditor, RenderLeafProps, Slate, useSlate } from "slate-react";
-import { ClientFrame, Icon, IconButton } from "./Components";
 import { isBlockActive, toggleBlock } from "./plugins/block";
 import { insertLink, isLinkActive, unwrapLink } from "./plugins/link";
 import { isMarkActive, toggleMark } from "./plugins/mark";
@@ -18,7 +17,7 @@ const EditorFrame: React.FC<EditorFrame> = ({ editor, value, onChange }) => {
   const renderLeaf = useCallback((props: any) => <Leaf {...props} />, []);
 
   return (
-    <ClientFrame>
+    <div>
       <Slate editor={editor} value={value} onChange={onChange}>
         <div
           style={{
@@ -30,7 +29,7 @@ const EditorFrame: React.FC<EditorFrame> = ({ editor, value, onChange }) => {
             zIndex: 1,
           }}
         >
-          <MarkButton format="bold" icon="format_bold" />
+          {/* <MarkButton format="bold" icon="format_bold" />
           <MarkButton format="italic" icon="format_italic" />
           <MarkButton format="underline" icon="format_underlined" />
           <MarkButton format="code" icon="code" />
@@ -42,12 +41,12 @@ const EditorFrame: React.FC<EditorFrame> = ({ editor, value, onChange }) => {
           <BlockButton format="numbered-list" icon="format_list_numbered" />
           <BlockButton format="bulleted-list" icon="format_list_bulleted" />
 
-          <LinkButton />
+          <LinkButton /> */}
         </div>
 
         <Editable renderElement={renderElement} renderLeaf={renderLeaf} />
       </Slate>
-    </ClientFrame>
+    </div>
   );
 };
 
@@ -110,55 +109,55 @@ const Leaf: React.FC<RenderLeafProps> = ({ attributes, children, leaf }) => {
   );
 };
 
-const BlockButton: React.FC<any> = ({ format, icon }) => {
-  const editor = useSlate();
-  return (
-    <IconButton
-      active={isBlockActive(editor, format)}
-      onMouseDown={(event) => {
-        event.preventDefault();
-        toggleBlock(editor, format);
-      }}
-    >
-      <Icon className="material-icons">{icon}</Icon>
-    </IconButton>
-  );
-};
+// const BlockButton: React.FC<any> = ({ format, icon }) => {
+//   const editor = useSlate();
+//   return (
+//     <button
+//       active={isBlockActive(editor, format)}
+//       onMouseDown={(event) => {
+//         event.preventDefault();
+//         toggleBlock(editor, format);
+//       }}
+//     >
+//       <Icon className="material-icons">{icon}</Icon>
+//     </IconButton>
+//   );
+// };
 
-const MarkButton: React.FC<any> = ({ format, icon }) => {
-  const editor = useSlate();
-  return (
-    <IconButton
-      active={isMarkActive(editor, format)}
-      onMouseDown={(event) => {
-        event.preventDefault();
-        toggleMark(editor, format);
-      }}
-    >
-      <Icon className="material-icons">{icon}</Icon>
-    </IconButton>
-  );
-};
+// const MarkButton: React.FC<any> = ({ format, icon }) => {
+//   const editor = useSlate();
+//   return (
+//     <IconButton
+//       active={isMarkActive(editor, format)}
+//       onMouseDown={(event) => {
+//         event.preventDefault();
+//         toggleMark(editor, format);
+//       }}
+//     >
+//       <Icon className="material-icons">{icon}</Icon>
+//     </IconButton>
+//   );
+// };
 
-const LinkButton = () => {
-  const editor = useSlate();
+// const LinkButton = () => {
+//   const editor = useSlate();
 
-  const isActive = isLinkActive(editor);
+//   const isActive = isLinkActive(editor);
 
-  return (
-    <IconButton
-      active={isActive}
-      onMouseDown={(event) => {
-        event.preventDefault();
+//   return (
+//     <IconButton
+//       active={isActive}
+//       onMouseDown={(event) => {
+//         event.preventDefault();
 
-        if (isActive) return unwrapLink(editor);
+//         if (isActive) return unwrapLink(editor);
 
-        const url = window.prompt("Enter the URL of the link:");
+//         const url = window.prompt("Enter the URL of the link:");
 
-        url && insertLink(editor, url);
-      }}
-    >
-      <Icon className="material-icons">link</Icon>
-    </IconButton>
-  );
-};
+//         url && insertLink(editor, url);
+//       }}
+//     >
+//       <Icon className="material-icons">link</Icon>
+//     </IconButton>
+//   );
+// };

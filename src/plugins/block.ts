@@ -22,6 +22,7 @@ export const toggleBlock = (editor: any, format: any) => {
 };
 
 export const isBlockActive = (editor: any, format: any) => {
+
   const [match] = Editor.nodes(editor, {
     match: (n) => n.type === format,
   });

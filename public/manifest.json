@@ -1,6 +1,6 @@
 {
-  "short_name": "Slate-yjs",
-  "name": "Demo application for the slate yjs bindings",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#db7093",
+  "theme_color": "#000000",
   "background_color": "#ffffff"
 }

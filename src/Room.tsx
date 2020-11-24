@@ -2,7 +2,6 @@ import faker from "faker";
 import debounce from "lodash/debounce";
 import React, { ChangeEvent, useState } from "react";
 import Client from "./Client";
-import { Button, Grid, H4, Input, RoomWrapper, Title } from "./Components";
 
 interface User {
   id: string;
@@ -40,25 +39,25 @@ const Room: React.FC<RoomProps> = ({ slug, removeRoom }) => {
     setUsers((users) => users.filter((u: User) => u.id !== userId));
 
   return (
-    <RoomWrapper>
-      <Title>
-        <H4>Document slug:</H4>
-        <Input type="text" value={roomSlug} onChange={changeSlug} />
-        <Button type="button" onClick={addUser}>
+    <div>
+      <h3>
+        <p>Document slug:</p>
+        <input type="text" value={roomSlug} onChange={changeSlug} />
+        <button type="button" onClick={addUser}>
           Add random user
-        </Button>
-        <Button type="button" onClick={removeRoom}>
+        </button>
+        <button type="button" onClick={removeRoom}>
           Remove Room
-        </Button>
-      </Title>
-      <Grid>
+        </button>
+      </h3>
+      <div>
         {users.map((user: User) =>
           isRemounted ? null : (
             <Client {...user} slug={roomSlug} key={user.id} removeUser={removeUser} />
           )
         )}
-      </Grid>
-    </RoomWrapper>
+      </div>
+    </div>
   );
 };
 

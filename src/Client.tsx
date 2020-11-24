@@ -1,10 +1,8 @@
-import styled from "@emotion/styled";
 import React, { useEffect, useMemo, useState } from "react";
 import { createEditor, Node } from "slate";
 import { withHistory } from "slate-history";
 import { withReact } from "slate-react";
 import { WebsocketEditorOptions, withWebsocket, withYjs } from "slate-yjs";
-import { Button, H4, Instance, Title } from "./Components";
 import EditorFrame from "./EditorFrame";
 import { withLinks } from "./plugins/link";
 
@@ -20,10 +18,14 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
   const [isOnline, setOnlineState] = useState<boolean>(false);
 
   const editor = useMemo(() => {
-    const slateEditor = withYjs(withLinks(withReact(withHistory(createEditor()))));
+    const slateEditor = withYjs(
+      withLinks(withReact(withHistory(createEditor())))
+    );
 
     const endpoint =
-      process.env.NODE_ENV === "production" ? window.location.origin : "ws://localhost:9000";
+      process.env.NODE_ENV === "production"
+        ? window.location.origin
+        : "ws://192.168.2.19:9000";
 
     const options: WebsocketEditorOptions = {
       endpoint: endpoint,
@@ -46,26 +48,26 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
   };
 
   return (
-    <Instance online={isOnline}>
-      <Title>
-        <Head>Editor: {name}</Head>
+    <div>
+      <h2>
+        <p>Editor: {name}</p>
         <div style={{ display: "flex", marginTop: 10, marginBottom: 10 }}>
-          <Button type="button" onClick={toggleOnline}>
+          <button type="button" onClick={toggleOnline}>
             Go {isOnline ? "offline" : "online"}
-          </Button>
-          <Button type="button" onClick={() => removeUser(id)}>
+          </button>
+          <button type="button" onClick={() => removeUser(id)}>
             Remove
-          </Button>
+          </button>
         </div>
-      </Title>
+      </h2>
 
-      <EditorFrame editor={editor} value={value} onChange={(value: Node[]) => setValue(value)} />
-    </Instance>
+      <EditorFrame
+        editor={editor}
+        value={value}
+        onChange={(value: Node[]) => setValue(value)}
+      />
+    </div>
   );
 };
 
 export default Client;
-
-const Head = styled(H4)`
-  margin-right: auto;
-`;
